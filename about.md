@@ -1,7 +1,7 @@
 ---
 layout: page
 title: About Me
-permalink: /about/
+permalink: /about.html
 ---
 
 ## 👋 Hi, I’m Jaehyun Jeong
