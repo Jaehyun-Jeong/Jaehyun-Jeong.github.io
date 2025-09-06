@@ -20,22 +20,11 @@ $\forall$ \( P, Q \): probability distributions on measurable space \( (X, \Sigm
 
 ---
 
----
-
-## *Th) Chain rule of KL divergence*
-
-$\forall$ \( P, Q \): probability distributions on measurable space \( (X, \Sigma) \),
-
-\[
-\delta(P, Q) \leq \sqrt{\frac{1}{2} D_{\text{KL}}(P \,\|\, Q)}
-\]
-
-- \( \delta(P, Q) \): Total variation
-- \( D_{\text{KL}}(P \,\|\, Q) \): KL divergence
-
----
-
 Proof)
+
+A special case of Pinsker's Inequality first be proved to prove the above theorem.
+
+To prove above theorem, special case of Pinsker's Inequality should be proved first.
 
 Let
 
