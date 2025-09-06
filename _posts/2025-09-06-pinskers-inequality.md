@@ -1,6 +1,6 @@
 ---
-title: Post with Header Image
-tags: TeXt
+title: Pinsker's Inequality
+tags: Statistics, RL
 article_header:
   type: cover
   image:
