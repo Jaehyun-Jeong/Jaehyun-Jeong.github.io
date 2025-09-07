@@ -9,14 +9,14 @@ article_header:
 
 ## *Th) Pinsker's Inequality*
 
-$\forall$ \( P, Q \): probability distributions on measurable space \( (X, \Sigma) \),
+$\forall$ \( P, Q \): probability distributions on measurable space \( X, \sigma \),
 
-\[
-\delta(P, Q) \leq \sqrt{\frac{1}{2} D_{\text{KL}}(P \,\|\, Q)}
-\]
 
-- \( \delta(P, Q) \): Total variation
-- \( D_{\text{KL}}(P \,\|\, Q) \): KL divergence
+$delta(P, Q) \leq \sqrt{\frac{1}{2} D_{\text{KL}}(P \,\|\, Q)}$
+
+
+- $\delta(P, Q)$ : Total variation
+- $D_{\text{KL}}(P \,\|\, Q)$ : KL divergence
 
 ---
 
@@ -50,13 +50,13 @@ then, below holds
 > Proof)
 > 
 > $
-\begin{align}
-D_{\text{KL}}(P(Z) \,\|\, Q(Z))
-    &= P(A) \log \frac{P(A)}{Q(A)} + P(A^c) \log \frac{P(A^c)}{Q(A^c)} \\
-    &= \sum_{x \in A} p(x) \log \frac{P(A)}{Q(A)}
-   + \sum_{x \notin A} p(x) \log \frac{P(A^c)}{Q(A^c)} \quad\cdots\quad \text{(1)}
-\end{align}
-$
+> \begin{align}
+> D_{\text{KL}}(P(Z) \,\|\, Q(Z))
+>     &= P(A) \log \frac{P(A)}{Q(A)} + P(A^c) \log \frac{P(A^c)}{Q(A^c)} \\
+>     &= \sum_{x \in A} p(x) \log \frac{P(A)}{Q(A)}
+>    + \sum_{x \notin A} p(x) \log \frac{P(A^c)}{Q(A^c)} \quad\cdots\quad \text{(1)}
+> \end{align}
+> $
 > 
 > $
 \begin{align}
