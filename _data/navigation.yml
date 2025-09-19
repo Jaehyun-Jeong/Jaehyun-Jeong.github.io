@@ -50,3 +50,21 @@ header:
       tr      : &TR       Hakkında
       # @end locale config
     url: /about.html
+
+profile:
+  - title: "Jaehyun Jeong"
+    url: "/about.html"
+  - title: "Recent Posts"
+    children:
+      - title: "All Posts"
+        url: "/archive.html"
+      - title: "RL & Math"
+        url: "/archive.html?tag=RL"
+  - title: "Contact"
+    children:
+      - title: "Email"
+        url: "mailto:jj.for.jaehyun@gmail.com"
+      - title: "GitHub"
+        url: "https://github.com/Jaehyun-Jeong"
+      - title: "LinkedIn" 
+        url: "https://www.linkedin.com/in/jaehyun-jeong-59529b2a5"

@@ -2,6 +2,8 @@
 layout: page
 title: About Me
 permalink: /about.html
+sidebar:
+  nav: profile
 ---
 
 ## 👋 Hi, I’m Jaehyun Jeong
