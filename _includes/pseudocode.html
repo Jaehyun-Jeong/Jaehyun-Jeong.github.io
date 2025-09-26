@@ -1,0 +1,33 @@
+<!-- KaTeX (수식 엔진) -->
+<link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer
+        src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+
+<!-- pseudocode.js -->
+<link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/pseudocode@2.4.1/build/pseudocode.min.css">
+<style>
+  /* JS 실패 시 원문 보이게 폴백 */
+  pre.pseudocode{display:block!important;white-space:pre-wrap;
+                 font-family:ui-monospace,Menlo,Consolas,monospace}
+</style>
+<script defer
+        src="https://cdn.jsdelivr.net/npm/pseudocode@2.4.1/build/pseudocode.min.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // 수식 엔진 객체 선택(KaTeX 또는 MathJax)
+    var math = (typeof katex !== 'undefined') ? katex :
+               (typeof MathJax !== 'undefined' ? MathJax : null);
+
+    if (window.pseudocode && typeof window.pseudocode.renderClass === 'function') {
+      window.pseudocode.renderClass("pseudocode", {
+        lineNumber: true,
+        titlePrefix: "Algorithm"
+      }, math); // ← 세 번째 인자로 math 엔진 전달
+    } else {
+      console.warn("pseudocode.js가 로드되지 않아 원문을 그대로 표시합니다.");
+    }
+  });
+</script>
