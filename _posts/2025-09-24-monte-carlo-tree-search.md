@@ -12,79 +12,63 @@ Open-loop algorithm, like this, can plan future actions from initial state $s_1$
 
 
 <pre class="mermaid">
-graph TB
+flowchart LR
 
-%% ============ ROW 1 ============
-subgraph R1L["Iter 1 - Selection / Expansion / Simulation"]
-  direction TB
-  r1_s1["s1"]
-  r1_s1 -- "a1 = 0" --> r1_s2["s2"]
-  r1_s2 -- "a2 = 0" --> r1_s3["s3"]
-  r1_s3 -. "rollout  pi(a_t | s_t)" .-> r1_pi["pi(a_t | s_t)"]
+%% ================== Tree 0: 초기 ==================
+subgraph T0["Tree 0 (init)"]
+direction TB
+  t0_s1["s1<br/>Q=0.00<br/>N=0"]
 end
 
-subgraph R1R["Iter 1 - Backpropagation (update N,Q)"]
-  direction TB
-  r1b_s1["s1"]
-  r1b_s1 -- "a1 = 0 | N=1, Q=10" --> r1b_s2["s2"]
-  r1b_s2 -- "a2 = 0 | N=1, Q=10" --> r1b_s3["s3"]
-  r1b_s3 -.-> r1b_pi["pi(a_t | s_t)"]
+%% ================== Tree 1: 1회차 - 좌측 확장 ==================
+subgraph T1["Tree 1 (after iter 1: expand left, rollout G1=0.60)"]
+direction TB
+  t1_s1["s1<br/>Q=0.60<br/>N=1"]
+  t1_s1 -->|a1 = 0| t1_s2L["s2<br/>Q=0.60<br/>N=1"]
+  t1_s2L -->|a2 = 0| t1_s3L0["s3<br/>Q=0.60<br/>N=1"]
+  t1_pi1["π(a_t &#124; s_t)"]
+  t1_s3L0 -.-> t1_pi1
 end
 
-r1_s1 --> r1b_s1  %% same-row alignment
-
-%% ============ ROW 2 ============
-subgraph R2L["Iter 2 - Selection / Expansion / Simulation"]
-  direction TB
-  r2_s1["s1"]
-  r2_s1 -- "a1 = 1" --> r2_s2["s2"]
-  r2_s2 -- "a2 = 1" --> r2_s3["s3"]
-  r2_s3 -. "rollout  pi(a_t | s_t)" .-> r2_pi["pi(a_t | s_t)"]
+%% ================== Tree 2: 2회차 - 우측 확장 ==================
+subgraph T2["Tree 2 (after iter 2: expand right, rollout G2=0.20)"]
+direction TB
+  t2_s1["s1<br/>Q=0.40<br/>N=2"]
+  t2_s1 -->|a1 = 0| t2_s2L["s2<br/>Q=0.60<br/>N=1"]
+  t2_s1 -->|a1 = 1| t2_s2R["s2<br/>Q=0.20<br/>N=1"]
+  t2_s2L -->|a2 = 0| t2_s3L0["s3<br/>Q=0.60<br/>N=1"]
+  t2_s2R -->|a2 = 1| t2_s3R1["s3<br/>Q=0.20<br/>N=1"]
+  t2_pi1["π(a_t &#124; s_t)"]
+  t2_pi2["π(a_t &#124; s_t)"]
+  t2_s3L0 -.-> t2_pi1
+  t2_s3R1 -.-> t2_pi2
 end
 
-subgraph R2R["Iter 2 - Backpropagation (aggregate)"]
-  direction TB
-  r2b_s1["s1"]
-  r2b_s1 -- "a1 = 0 | N=1, Q=10" --> r2b_s2L["s2"]
-  r2b_s1 -- "a1 = 1 | N=1, Q=12" --> r2b_s2R["s2"]
-  r2b_s2L -- "a2 = 0 | N=1, Q=10" --> r2b_s3L["s3"]
-  r2b_s2R -- "a2 = 1 | N=1, Q=12" --> r2b_s3R["s3"]
-  r2b_s3L -.-> r2b_piL["pi(a_t | s_t)"]
-  r2b_s3R -.-> r2b_piR["pi(a_t | s_t)"]
+%% ================== Tree 3: 3회차 - 좌측 a2=1 확장 ==================
+subgraph T3["Tree 3 (after iter 3: expand left a2=1, rollout G3=0.90)"]
+direction TB
+  t3_s1["s1<br/>Q=0.57<br/>N=3"]
+  t3_s1 -->|a1 = 0| t3_s2L["s2<br/>Q=0.75<br/>N=2"]
+  t3_s1 -->|a1 = 1| t3_s2R["s2<br/>Q=0.20<br/>N=1"]
+
+  t3_s2L -->|a2 = 0| t3_s3L0["s3<br/>Q=0.60<br/>N=1"]
+  t3_s2L -->|a2 = 1| t3_s3L1["s3<br/>Q=0.90<br/>N=1"]
+
+  t3_s2R -->|a2 = 0| t3_s3R0["s3<br/>Q=NA<br/>N=0"]
+  t3_s2R -->|a2 = 1| t3_s3R1["s3<br/>Q=0.20<br/>N=1"]
+
+  t3_pi1["π(a_t &#124; s_t)"]
+  t3_pi2["π(a_t &#124; s_t)"]
+  t3_pi3["π(a_t &#124; s_t)"]
+  t3_pi4["π(a_t &#124; s_t)"]
+  t3_s3L0 -.-> t3_pi1
+  t3_s3L1 -.-> t3_pi2
+  t3_s3R0 -.-> t3_pi3
+  t3_s3R1 -.-> t3_pi4
 end
 
-r2_s1 --> r2b_s1      %% same-row alignment
-r1_s1 --> r2_s1       %% left column top->down
-r1b_s1 --> r2b_s1     %% right column top->down
-
-%% ============ ROW 3 ============
-subgraph R3L["Iter 3 - Best-first Selection / Expansion"]
-  direction TB
-  r3_s1["s1"]
-  r3_s1 -- "a1 = 0 | N=2, Q=11" --> r3_s2L["s2"]
-  r3_s1 -- "a1 = 1 | N=1, Q=12" --> r3_s2R["s2"]
-  r3_s2L -- "a2 = 1" --> r3_s3L2["s3"]
-  r3_s3L2 -. "rollout  pi(a_t | s_t)" .-> r3_pi["pi(a_t | s_t)"]
-end
-
-subgraph R3R["After several iters - Choose action by max N"]
-  direction TB
-  r3b_s1["s1"]
-  r3b_s1 -- "a1 = 0 | N=3, Q=11.3" --> r3b_s2L["s2"]
-  r3b_s1 -- "a1 = 1 | N=2, Q=12.0" --> r3b_s2R["s2"]
-  r3b_s2L -- "a2 = 0 | N=2, Q=11" --> r3b_s3L0["s3"]
-  r3b_s2L -- "a2 = 1 | N=1, Q=12" --> r3b_s3L1["s3"]
-  r3b_s2R -- "a2 = 0 | N=1, Q=10" --> r3b_s3R0["s3"]
-  r3b_s2R -- "a2 = 1 | N=1, Q=16" --> r3b_s3R1["s3"]
-  r3b_s3L0 -.-> r3b_pi0["pi(a_t | s_t)"]
-  r3b_s3L1 -.-> r3b_pi1["pi(a_t | s_t)"]
-  r3b_s3R0 -.-> r3b_pi2["pi(a_t | s_t)"]
-  r3b_s3R1 -.-> r3b_pi3["pi(a_t | s_t)"]
-end
-
-r3_s1 --> r3b_s1
-r2_s1 --> r3_s1
-r2b_s1 --> r3b_s1
+%% ---- 스냅샷 간 진행 (트리 -> 트리 -> 트리 -> 트리) ----
+t0_s1 --> t1_s1 --> t2_s1 --> t3_s1
 </pre>
 
 
