@@ -17,7 +17,7 @@ Open-loop planning algorithms like MCTS, can plan future actions from an initial
 
 MCTS selects the action expected to yeild the highest return. However, evaluating every state's value is usually infeasible; if all values were known, the agent could simply choose the best action. Thus we must estimate values, and **rollout** make this possible. A single rollout can be inaccurate, but MCTS mitigates this by repeating rollouts and expanding the tree: as the number of visits increases, the estimates become more accurate.
 
-For deep trees, computation can be expensiave: with a fixed branching factor (number of actions), the cost grows exponentially with depth. I believe there might be some sort of trade-off methologies. I plan to discuss these after further study.
+For deep trees, computation can be expensive: with a fixed branching factor (number of actions), the cost grows exponentially with depth. I believe there might be some sort of trade-off methologies. I plan to discuss these after further study.
 
 ## Pseudocode
 
