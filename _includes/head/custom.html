@@ -1,6 +1,27 @@
-<!-- start custom head snippets -->
+<!-- _includes/head/custom.html -->
+<!-- MathJax -->
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']]
+    }
+  };
+</script>
+<script defer id="MathJax-script"
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+<!-- Mermaid (ESM) + MathJax 연동 -->
 <script type="module">
-    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-    mermaid.initialize({ startOnLoad: true });
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+  window.addEventListener('DOMContentLoaded', async () => {
+    mermaid.initialize({
+      startOnLoad: false,
+      securityLevel: 'loose',
+      flowchart: { htmlLabels: true }   // 수식 렌더하려면 필수
+    });
+    await mermaid.run({ querySelector: '.mermaid' }); // 모든 다이어그램 렌더
+    if (window.MathJax?.typesetPromise) await MathJax.typesetPromise(); // 수식 적용
+  });
 </script>
 <!-- end custom head snippets -->
