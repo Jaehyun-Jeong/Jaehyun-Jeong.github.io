@@ -1,0 +1,99 @@
+///
+// Skin: Nord
+// Based on Nord Theme (https://www.nordtheme.com)
+// Arctic, north-bluish color palette
+///
+
+// Nord Color Palette
+// Polar Night (dark backgrounds)
+$nord0: #2E3440;
+$nord1: #3B4252;
+$nord2: #434C5E;
+$nord3: #4C566A;
+
+// Snow Storm (light text)
+$nord4: #D8DEE9;
+$nord5: #E5E9F0;
+$nord6: #ECEFF4;
+
+// Frost (blue/teal accents)
+$nord7: #8FBCBB;
+$nord8: #88C0D0;
+$nord9: #81A1C1;
+$nord10: #5E81AC;
+
+// Aurora (colorful accents)
+$nord11: #BF616A; // red
+$nord12: #D08770; // orange
+$nord13: #EBCB8B; // yellow
+$nord14: #A3BE8C; // green
+$nord15: #B48EAD; // purple
+
+// main colors
+$main-color-1:     $nord8; // Frost cyan
+$text-color-1:     $nord6;
+
+$main-color-2:     $nord9; // Frost blue
+$text-color-2:     $nord6;
+
+$main-color-3:     $nord1; // Polar Night darker
+$text-color-3:     $nord4;
+
+$main-color-theme-light: $nord0;
+$main-color-theme-dark:  $nord4;
+
+// page background
+$background-color: $nord0; // Darkest Polar Night
+
+// text colors
+$text-color-theme-light-d: #000;
+$text-color-theme-light:   #222;
+$text-color-theme-light-l: #888;
+
+$text-color-theme-dark-d:  $nord6; // Brightest Snow Storm
+$text-color-theme-dark:    $nord5;
+$text-color-theme-dark-l:  $nord4;
+
+$text-color-d:     $text-color-theme-dark-d;
+$text-color:       $text-color-theme-dark;
+$text-color-l:     $text-color-theme-dark-l;
+
+$text-background-color: rgba($nord3, .3);
+
+// header and footer colors
+$header-text-color: $text-color-3;
+$header-background: $main-color-3;
+
+$footer-text-color: $text-color-3;
+$footer-background: $main-color-3;
+
+// border and shadow colors
+$border-color:     $nord3;
+$border-color-l:   $nord2;
+$decorate-color:   rgba($nord4, .1);
+$mask-color:       rgba($nord0, .95);
+$select-color:     rgba($nord8, .5);
+
+// function colors
+$green:           $nord14; // Aurora green
+$blue:            $nord10; // Frost dark blue
+$yellow:          $nord13; // Aurora yellow
+$red:             $nord11; // Aurora red
+$text-color-function: $nord6;
+
+// logo colors
+$mail-color:       #0072c5;
+$facebook-color:   #4267b2;
+$twitter-color:    #1da1f2;
+$weibo-color:      #e6162d;
+$google-plus-color:#ea4335;
+$telegram-color:   #32afed;
+$medium-color:     $nord6;
+$zhihu-color:      #0084ff;
+$douban-color:     #42bd56;
+$linkedin-color:   #1074af;
+$github-color:     $nord6;
+$npm-color:        $nord11;
+
+// highlight colors
+@import "skins/highlight/tomorrow-night";
