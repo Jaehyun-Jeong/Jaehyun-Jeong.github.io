@@ -3,7 +3,115 @@
 <script>
   window.Lazyload.js('{{ _sources.mermaid }}', function() {
     mermaid.initialize({
-      startOnLoad: true
+      startOnLoad: true,
+      theme: 'base',
+      themeVariables: {
+        // Gruvbox Dark color scheme
+        primaryColor: '#458588',        // gruvbox blue
+        primaryTextColor: '#ebdbb2',    // gruvbox fg
+        primaryBorderColor: '#83a598',  // gruvbox bright blue
+        lineColor: '#a89984',           // gruvbox gray
+        secondaryColor: '#b16286',      // gruvbox purple
+        tertiaryColor: '#689d6a',       // gruvbox aqua
+
+        background: '#282828',          // gruvbox bg0
+        mainBkg: '#3c3836',            // gruvbox bg1
+        secondBkg: '#504945',          // gruvbox bg2
+        tertiaryBkg: '#665c54',        // gruvbox bg3
+
+        nodeBorder: '#83a598',         // gruvbox bright blue
+        clusterBkg: '#3c3836',         // gruvbox bg1
+        clusterBorder: '#a89984',      // gruvbox gray
+
+        titleColor: '#fabd2f',         // gruvbox bright yellow
+        edgeLabelBackground: '#3c3836', // gruvbox bg1
+
+        actorBorder: '#83a598',        // gruvbox bright blue
+        actorBkg: '#458588',           // gruvbox blue
+        actorTextColor: '#ebdbb2',     // gruvbox fg
+        actorLineColor: '#a89984',     // gruvbox gray
+
+        signalColor: '#ebdbb2',        // gruvbox fg
+        signalTextColor: '#ebdbb2',    // gruvbox fg
+
+        labelBoxBkgColor: '#3c3836',   // gruvbox bg1
+        labelBoxBorderColor: '#83a598', // gruvbox bright blue
+        labelTextColor: '#ebdbb2',     // gruvbox fg
+
+        loopTextColor: '#ebdbb2',      // gruvbox fg
+        noteBorderColor: '#d79921',    // gruvbox yellow
+        noteBkgColor: '#504945',       // gruvbox bg2
+        noteTextColor: '#ebdbb2',      // gruvbox fg
+
+        activationBorderColor: '#83a598', // gruvbox bright blue
+        activationBkgColor: '#504945',    // gruvbox bg2
+
+        sequenceNumberColor: '#282828',   // gruvbox bg0
+
+        sectionBkgColor: '#504945',    // gruvbox bg2
+        altSectionBkgColor: '#3c3836', // gruvbox bg1
+        sectionBkgColor2: '#665c54',   // gruvbox bg3
+
+        taskBorderColor: '#83a598',    // gruvbox bright blue
+        taskBkgColor: '#458588',       // gruvbox blue
+        taskTextColor: '#ebdbb2',      // gruvbox fg
+        taskTextLightColor: '#ebdbb2', // gruvbox fg
+        taskTextOutsideColor: '#ebdbb2', // gruvbox fg
+        taskTextClickableColor: '#fabd2f', // gruvbox bright yellow
+
+        activeTaskBorderColor: '#fe8019', // gruvbox bright orange
+        activeTaskBkgColor: '#d65d0e',    // gruvbox orange
+
+        gridColor: '#504945',          // gruvbox bg2
+        doneTaskBkgColor: '#98971a',   // gruvbox green
+        doneTaskBorderColor: '#b8bb26', // gruvbox bright green
+
+        critBorderColor: '#fb4934',    // gruvbox bright red
+        critBkgColor: '#cc241d',       // gruvbox red
+
+        todayLineColor: '#fabd2f',     // gruvbox bright yellow
+
+        git0: '#458588',               // gruvbox blue
+        git1: '#b16286',               // gruvbox purple
+        git2: '#689d6a',               // gruvbox aqua
+        git3: '#d79921',               // gruvbox yellow
+        git4: '#fe8019',               // gruvbox bright orange
+        git5: '#98971a',               // gruvbox green
+        git6: '#cc241d',               // gruvbox red
+        git7: '#83a598',               // gruvbox bright blue
+
+        gitBranchLabel0: '#282828',    // gruvbox bg0
+        gitBranchLabel1: '#282828',
+        gitBranchLabel2: '#282828',
+        gitBranchLabel3: '#282828',
+        gitBranchLabel4: '#282828',
+        gitBranchLabel5: '#282828',
+        gitBranchLabel6: '#282828',
+        gitBranchLabel7: '#282828',
+
+        commitLabelColor: '#ebdbb2',   // gruvbox fg
+        commitLabelBackground: '#3c3836', // gruvbox bg1
+
+        tagLabelColor: '#282828',      // gruvbox bg0
+        tagLabelBackground: '#fabd2f', // gruvbox bright yellow
+        tagLabelBorder: '#d79921',     // gruvbox yellow
+
+        tagLabelFontSize: '10px',
+
+        attributeBackgroundColorOdd: '#3c3836', // gruvbox bg1
+        attributeBackgroundColorEven: '#504945', // gruvbox bg2
+
+        classText: '#ebdbb2',          // gruvbox fg
+
+        fillType0: '#458588',          // gruvbox blue
+        fillType1: '#b16286',          // gruvbox purple
+        fillType2: '#689d6a',          // gruvbox aqua
+        fillType3: '#d79921',          // gruvbox yellow
+        fillType4: '#fe8019',          // gruvbox bright orange
+        fillType5: '#98971a',          // gruvbox green
+        fillType6: '#cc241d',          // gruvbox red
+        fillType7: '#83a598'           // gruvbox bright blue
+      }
     });
     mermaid.init(undefined, '.language-mermaid');
   });
