@@ -71,3 +71,51 @@ The commands below open the GUI tools for ROS 2.
 rqt
 rqt_graph  # Shows a graph of packages
 ```
+
+## Topics
+
+The command below shows currently running topics.
+```bash
+ros2 topic list
+```
+
+To see what topic is recieving, run the command below.
+```bash
+ros2 topic echo <topic name>
+```
+
+```bash
+ros2 topic info <topic name>
+```
+
+The commands below print frequency and bandwidth of the topic.
+```bash
+ros2 topic hz <topic name>
+ros2 topic bw <topic name>
+```
+
+The command below instantly publish a topic.
+```bash
+ros2 topic pub -r <seconds> <topic name> <interface name> <data>
+# Like thie one
+ros2 topic pub -r 5 /robot_news example_interfaces/msg/String "{data: 'Hello from the terminal'}"
+```
+
+The command below can change the topic name.
+```bash
+ros2 run my_py_pkg robot_news_station --ros-args -r __node:=my_station -r robot_news:=abc
+```
+*robot_news to abc*
+
+**NOTE: In the same way, node, topic publisher, and topic reciever can be remaped with -r option.**
+
+## Interfaces
+
+The command below returns the interface information.
+```bash
+ros2 interface <interface name>
+```
+
+```bash
+ros2 interface show geometry_msgs/msg/Twist
+```
