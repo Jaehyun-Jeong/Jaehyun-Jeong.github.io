@@ -97,7 +97,7 @@ ros2 topic bw <topic name>
 The command below instantly publish a topic.
 ```bash
 ros2 topic pub -r <seconds> <topic name> <interface name> <data>
-# Like thie one
+# Like this one
 ros2 topic pub -r 5 /robot_news example_interfaces/msg/String "{data: 'Hello from the terminal'}"
 ```
 
@@ -118,4 +118,32 @@ ros2 interface <interface name>
 
 ```bash
 ros2 interface show geometry_msgs/msg/Twist
+```
+
+## Bags
+
+```bash
+# Help
+ros2 bag -h
+
+# Record topics
+ros2 bag record <topic name 1> <topic name 2> ...
+# Record topics with custom record name
+ros2 bag record -o <record name> <topic name 1> <topic name 2> ...
+# Record all topics
+ros2 bag record -a
+
+# Play a record
+ros2 bag play <record name>
+
+# Print record Information
+ros2 bag info <record name>
+```
+
+## Services
+
+```bash
+ros2 service call <server node name> <interface name> <request>
+# Like this one
+ros2 service call /add_two_ints example_interfaces/srv/AddTwoInts "{a: 3, b: 7}"
 ```
