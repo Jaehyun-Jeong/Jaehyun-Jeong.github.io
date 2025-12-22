@@ -8,7 +8,13 @@ pseudocode: true
 
 If you don't know about ROS 2 Topics, go to [this](https://jaehyun-jeong.github.io/2025/12/09/ros2-topics.html) page and learn.
 
-**Topics are used for data streams (unidirectional), and Services for a client/server interaction (bidirectional).** First, Services can work in synchronous or asynchronous manner. If the service is synchronous, the client send a request and block until receiving response. However, if the service is asynchronous, the client send a request and register callback function for the response and continue its execution. If the server responded, the callback function triggered. Second Services are defined by name and the pair of messages. One message is Request and other message is Response. Last but not least, a service can only exist once, but can have multiple clients.
+**Topics are used for data streams (unidirectional), and Services are used for a client/server interactions (bidirectional).**
+
+First , Services can work in a synchronous or asynchronous manner. If the service is synchronous, the client sends a Request and blocks until receiving a response. However, if the service is asynchronous, the client sends a Request, registers a callback function for the response and continues its execution. When the server responds, the callback function is triggered.
+
+Furthermore, you define services by name and a pair of messages. One message is the Request and other message is the Response.
+
+Finally, only one server can exist for a given service name.
 
 ## Simple Python code
 
@@ -56,6 +62,7 @@ if __name__ == "__main__":
 
 ### Client
 
+*Non-OOP method*
 ```python
 #!/usr/bin/env python3
 import rclpy
@@ -93,8 +100,8 @@ def main(args=None):
 if __name__ == "__main__":
     main()
 ```
-*Non-OOP method*
 
+*OOP method*
 ```python
 #!/usr/bin/env python3
 import rclpy
@@ -142,9 +149,8 @@ def main(args=None):
 if __name__ == "__main__":
     main()
 ```
-*OOP method*
 
-**NOTE: In the OOP method, "rclpy.spin_until_future_complete(node, future)" is not required since the class is already spinning. Instead of this, it is required to add callback function with "future.add_done_callback".**
+**NOTE: In the OOP method, "rclpy.spin_until_future_complete(node, future)" is not required since the class is already spinning. Instead of this, it is required to add a callback function using "future.add_done_callback".**
 
 ## Simple C++ code
 
@@ -191,6 +197,7 @@ int main(int argc, char **argv){
 
 ### Client
 
+*Non-OOP method*
 ```cpp
 #include "rclcpp/rclcpp.hpp"
 #include "example_interfaces/srv/add_two_ints.hpp"
@@ -221,8 +228,8 @@ int main(int argc, char **argv){
     return 0;
 }
 ```
-*Non-OOP method*
 
+*OOP method*
 ```cpp
 #include "rclcpp/rclcpp.hpp"
 #include "example_interfaces/srv/add_two_ints.hpp"
@@ -276,7 +283,6 @@ int main(int argc, char **argv){
     return 0;
 }
 ```
-*OOP method*
 
 ## ROS 2 commands for services
 
@@ -304,4 +310,9 @@ ros2 service call /add_two_ints example_interfaces/srv/AddTwoInts "{a: 7, b: 3}"
 #
 # response:
 # example_interfaces.srv.AddTwoInts_Response(sum=10)
+
+# Service name can be changed with an argument below
+ros2 run <package name> <server node name> --ros-args -r <service name>:=<change the service name to this>
+# Client can change the service name with the argument below
+ros2 run <package name> <client node name> --ros-args -r <service name>:=<change the service name to this>
 ```
