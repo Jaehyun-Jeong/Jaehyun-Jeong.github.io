@@ -6,6 +6,13 @@ article_header:
 pseudocode: true
 ---
 
+## Packages
+
+```bash
+# Create a package
+ros2 pkg create <package name>
+```
+
 ## Run nodes
 
 ```bash
