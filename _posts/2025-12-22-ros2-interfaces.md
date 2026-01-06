@@ -109,7 +109,9 @@ ament_export_dependencies(rosidl_default_runtime)
 ament_package()
 ```
 
-And create a folder for msg
+## Message
+
+First, in the interface package directory, create a directory for messages.
 
 ```bash
 mkdir msg
@@ -233,3 +235,46 @@ int main(int argc, char **argv){
     return 0;
 }
 ```
+
+## Service
+
+First, in the interface package directory, create a directory for services.
+
+```bash
+mkdir srv
+cd srv
+touch <service name>.srv  # name service starting with verb.
+```
+
+Since services had **request** and **respond**, service requires "---" such as the code below.
+```
+float64 length
+float64 width
+---
+float64 area
+```
+*<service name>.srv*
+
+Then, you should add this service into rosidl_generate_interfaces
+
+```txt
+cmake_minimum_required(VERSION 3.8)
+project(my_robot_interfaces)
+
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  add_compile_options(-Wall -Wextra -Wpedantic)
+endif()
+
+# find dependencies
+find_package(ament_cmake REQUIRED)
+find_package(rosidl_default_generators REQUIRED)
+
+rosidl_generate_interfaces(${PROJECT_NAME}
+  "./msg/HardwareStatus.msg"  # No comma
+  "./srv/ComputeRectangleArea.srv"
+)
+
+ament_package()
+```
+
+Just like the case of messages, services also can be imported or included in the same manner.

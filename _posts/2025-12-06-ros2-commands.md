@@ -118,9 +118,19 @@ ros2 run my_py_pkg robot_news_station --ros-args -r __node:=my_station -r robot_
 
 ## Interfaces
 
+The command below returns the list of interfaces.
+```bash
+ros2 interface list
+```
+
+The command below returns the list of interfaces in the package.
+```bash
+ros2 interface package <package name>
+```
+
 The command below returns the interface information.
 ```bash
-ros2 interface <interface name>
+ros2 interface show <interface name>
 ```
 
 ```bash
