@@ -114,3 +114,122 @@ And create a folder for msg
 ```bash
 mkdir msg
 ```
+
+Let's create an msg file with the command below.
+
+```bash
+cd msg
+touch <msg name>.msg
+```
+
+Then you can write down like the code below.
+
+```
+float64 temperature
+bool are_motors_ready
+string debug_message
+```
+*<msg name>.msg*
+
+After this be sure by checking
+```bash
+ros2 interface show <interface package name>/msg/<msg name>
+```
+
+## Import a custom interface
+
+### In Python
+
+```python
+import <interface package name>.msg import <msg name>
+```
+
+**NOTE: Be sure to build with "colcon build" before importing an interface**
+
+### example
+```python
+#!/usr/bin/env python3
+import rclpy
+from rclpy.node import Node
+from my_robot_interfaces.msg import HardwareStatus
+
+
+class HardwareStatusPublisherNode(Node):  # MODIFY NAME
+    def __init__(self):
+        super().__init__("hardware_status_publisher")  # MODIFY NAME
+        self.hw_status_pub_ = self.create_publisher(HardwareStatus, "hardware_status", 10)
+        self.timer_ = self.create_timer(1.0, self.publish_hw_status)
+        self.get_logger().info("Hw status publisher has been started.")
+
+    def publish_hw_status(self):
+        msg = HardwareStatus()
+        msg.temperature = 43.7
+        msg.are_motors_ready = True
+        msg.debug_message = "Nothing special"
+        self.hw_status_pub_.publish(msg)
+
+
+def main(args=None):
+    rclpy.init(args=args)
+    node = HardwareStatusPublisherNode()
+    rclpy.spin(node)
+    rclpy.shutdown()
+
+
+if __name__ == "__main__":
+    main()
+```
+
+### In C++
+
+```cpp
+#include "<interface package name>/msg/<interface name>.hpp"
+```
+
+**NOTE: If you decided the interface name as "HardwareStatus", then in the .cpp file, you need to include with "hardware_status.hpp"**
+
+```cpp
+#include "rclcpp/rclcpp.hpp"
+#include "my_robot_interfaces/msg/hardware_status.hpp"
+
+using namespace std::chrono_literals;
+
+
+class HardwareStatusPublisherNode : public rclcpp::Node{  // MODIFY NAME
+public:
+    HardwareStatusPublisherNode() : Node("hardware_status_publisher_node")
+    {
+        pub_ = this->create_publisher<my_robot_interfaces::msg::HardwareStatus>(
+            "hardware_status",
+            10
+        );
+
+        timer_ = this->create_wall_timer(
+            1s,
+            std::bind(&HardwareStatusPublisherNode::publishHardwareStatus, this)
+        );
+        RCLCPP_INFO(this->get_logger(), "Hardware status publisher has been started");
+    }
+private:
+    void publishHardwareStatus(){
+        auto msg = my_robot_interfaces::msg::HardwareStatus();
+        msg.temperature = 57.2;
+        msg.are_motors_ready = false;
+        msg.debug_message = "Motors are too hot!";
+        pub_ -> publish(msg);
+    }
+
+    rclcpp::Publisher<my_robot_interfaces::msg::HardwareStatus>::SharedPtr pub_;
+    rclcpp::TimerBase::SharedPtr timer_;
+};
+
+
+int main(int argc, char **argv){
+    rclcpp::init(argc, argv);
+    auto node = std::make_shared<HardwareStatusPublisherNode>();  // MODIFY NAME
+    rclcpp::spin(node);
+    rclcpp::shutdown();
+
+    return 0;
+}
+```
