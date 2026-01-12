@@ -1,3 +1,12 @@
 /* start custom scss snippet */
 
+// Increase default font size
+html {
+  font-size: 18px; // Default is 16px
+
+  @media (max-width: 500px) {
+    font-size: 16px; // Slightly smaller on mobile, default is 14px
+  }
+}
+
 /* end custom scss snippet */
