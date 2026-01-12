@@ -7,14 +7,14 @@
 :root{
   --sb-width: 250px;
 
-  --bg:   #2E3440;
-  --text: #ECEFF4;
-  --muted: #ECEFF4;
-  --faint: #D8DEE9;
-  --line:        #E5E9F0;
-  --line-strong: #D8DEE9;
-  --hover: #3B4252;
-  --focus: #88C0D0;
+  --bg:   #ffffff;
+  --text: #24292e;
+  --muted: #586069;
+  --faint: #6a737d;
+  --line:        #e1e4e8;
+  --line-strong: #d1d5da;
+  --hover: #f6f8fa;
+  --focus: #0366d6;
 }
 
 /* ============================
@@ -29,7 +29,8 @@
   height: 100vh; min-height: 100vh;
   display:flex; flex-direction:column;
   z-index:100;
-  box-shadow: inset -1px 0 0 var(--line); /* subtle right border */
+  border-right: 1px solid var(--line);
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.04); /* subtle shadow for depth */
 }
 
 /* Header: flat, no tint */
@@ -44,11 +45,14 @@
 .profile-avatar-fancy{ display:inline-block; margin-bottom:.85rem; }
 .profile-avatar-fancy img{
   width:96px; height:96px; border-radius:999px;
-  border:2px solid #eeeeee;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  border:3px solid var(--line);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
   transition: transform .15s ease;
 }
-.profile-avatar-fancy:hover img{ transform: scale(1.02); }
+.profile-avatar-fancy:hover img{
+  transform: scale(1.02);
+  border-color: var(--focus);
+}
 
 /* Name / Title */
 .profile-name-fancy{
@@ -230,7 +234,7 @@
   <div class="profile-footer">
     <p class="footer-text">
       Exploring Math &amp; AI<br>
-      <span style="color:#ef4444;">♥</span> Reinforcement Learning
+      <span style="color:#e74c3c;">♥</span> Reinforcement Learning
     </p>
   </div>
 </div>

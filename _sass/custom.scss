@@ -9,4 +9,66 @@ html {
   }
 }
 
+// Nord Theme Linear Gradients
+// Based on Nord Color Palette (https://www.nordtheme.com)
+
+// Frost gradient (blue/teal)
+$nord-gradient-frost: linear-gradient(135deg, #8FBCBB 0%, #88C0D0 25%, #81A1C1 75%, #5E81AC 100%);
+
+// Aurora gradient (colorful)
+$nord-gradient-aurora: linear-gradient(135deg, #BF616A 0%, #D08770 25%, #EBCB8B 50%, #A3BE8C 75%, #B48EAD 100%);
+
+// Polar Night gradient (dark)
+$nord-gradient-polar: linear-gradient(135deg, #2E3440 0%, #3B4252 33%, #434C5E 66%, #4C566A 100%);
+
+// Snow Storm gradient (light)
+$nord-gradient-snow: linear-gradient(135deg, #D8DEE9 0%, #E5E9F0 50%, #ECEFF4 100%);
+
+// Frost-Aurora blend (recommended for accents)
+$nord-gradient-blend: linear-gradient(135deg, #88C0D0 0%, #81A1C1 33%, #B48EAD 66%, #D08770 100%);
+
+// Sidebar styling for clean white theme
+.page__sidebar {
+  background-color: #ffffff !important;
+  border-right: 1px solid #e1e4e8;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+
+  // Sidebar navigation items
+  .sidebar__title {
+    color: #24292e;
+    font-weight: 600;
+    padding: 1rem 1.5rem 0.5rem;
+  }
+
+  .navigation {
+    a {
+      color: #586069;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: #0366d6;
+        text-decoration: none;
+      }
+
+      &.active {
+        color: #0366d6;
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+// Header styling for clean white theme
+.page__header {
+  background-color: #ffffff !important;
+  border-bottom: 1px solid #e1e4e8;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+// Footer styling for clean white theme
+.page__footer {
+  background-color: #f6f8fa !important;
+  border-top: 1px solid #e1e4e8;
+}
+
 /* end custom scss snippet */

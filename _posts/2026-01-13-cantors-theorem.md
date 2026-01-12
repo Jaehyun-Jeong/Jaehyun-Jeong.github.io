@@ -1,9 +1,16 @@
 ---
+layout: article
 title: "Cantor’s Diagonal Argument: Not All Infinities Are Equal"
 tags: SetTheory
 article_header:
-  type: cover
+  type: overlay
+  theme: light
+  background_color: '#f8f9fa'
+  background_image:
+    gradient: 'linear-gradient(135deg, rgba(52, 152, 219, .3), rgba(155, 89, 182, .3))'
+    src: /assets/images/2026-01-13-cantors-theorem/header.png
 ---
+
 
 One of the biggest surprises that I encountered while majoring in applied mathematics was the statement that "the cardinal numbers of $\mathbb{N}$ (the set of natural numbers) and $\mathbb{Z}$ (the set of integers) are equal". The cardinal number of a set is defined as the size of the set. For finite sets, if a set $A$ is empty then the cardinal number of $A$ is 0, and if the set $A$ has $k$ elements then the cardinal number of $A$ is $k$. However, for infinite sets $A$ and $B$, their cardinal numbers are equal if and only if there exists a one-to-one correspondence (bijective) from $A$ to $B$. We can deduce that aforementioned statement is true from the definition of cardinal number. The really interesting part of this theorem is that the mismatch between our intuition and a rigorous mathematical concepts, since our brains tend to believe, Intuitively, that the size of $\mathbb{Z}$ should be twice the size of $\mathbb{N}$, plus one.
 
