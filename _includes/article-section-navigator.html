@@ -34,6 +34,11 @@
   {%- assign _next = page.next -%}
 {%- endif -%}
 
+{%- unless _find_cur -%}
+  {%- assign _previous = page.previous -%}
+  {%- assign _next = page.next -%}
+{%- endunless -%}
+
 {%- if _next or _previous -%}
   <div class="article__section-navigator clearfix">
     {%- if _previous -%}
