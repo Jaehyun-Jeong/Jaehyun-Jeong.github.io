@@ -71,4 +71,82 @@ $nord-gradient-blend: linear-gradient(135deg, #88C0D0 0%, #81A1C1 33%, #B48EAD 6
   border-top: 1px solid #e1e4e8;
 }
 
+// Beamer-style theorem / definition blocks
+.theorem-box {
+  margin: 1.5em 0;
+  border: 1px solid #5E81AC;
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: #ECEFF4;
+}
+
+.theorem-box .theorem-header {
+  background-color: #5E81AC;
+  color: #ffffff;
+  font-weight: 600;
+  padding: 0.35em 0.9em;
+  font-size: 0.95em;
+}
+
+.theorem-box .theorem-body {
+  padding: 0.7em 1em;
+
+  > p:first-child { margin-top: 0; }
+  > p:last-child  { margin-bottom: 0; }
+}
+
+.theorem-box.definition { border-color: #A3BE8C; }
+.theorem-box.definition .theorem-header { background-color: #A3BE8C; }
+
+.theorem-box.lemma { border-color: #B48EAD; }
+.theorem-box.lemma .theorem-header { background-color: #B48EAD; }
+
+.theorem-box.remark { border-color: #D08770; }
+.theorem-box.remark .theorem-header { background-color: #D08770; }
+
+// Textbook-style note / aside block
+.note-box {
+  margin: 1.5em 0;
+  padding: 0.8em 1em;
+  border-left: 4px solid #88C0D0;
+  background-color: #ECEFF4;
+  border-radius: 0 4px 4px 0;
+}
+
+.note-box .note-header {
+  font-weight: 700;
+  color: #5E81AC;
+  margin-bottom: 0.3em;
+  font-size: 0.95em;
+  letter-spacing: 0.02em;
+}
+
+.note-box .note-body {
+  > p:first-child { margin-top: 0; }
+  > p:last-child  { margin-bottom: 0; }
+}
+
+// Paper-style theorem: bold header, no box
+.theorem-box.plain {
+  margin: 1.5em 0;
+  border: none;
+  border-radius: 0;
+  background: none;
+  overflow: visible;
+}
+
+.theorem-box.plain .theorem-header {
+  background: none;
+  color: inherit;
+  font-weight: 700;
+  font-size: 1em;
+  padding: 0;
+}
+
+.theorem-box.plain .theorem-body {
+  padding: 0;
+
+  > p:first-child { margin-top: 0.3em; }
+}
+
 /* end custom scss snippet */
