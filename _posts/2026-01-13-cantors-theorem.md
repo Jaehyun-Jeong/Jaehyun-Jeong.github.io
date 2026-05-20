@@ -19,17 +19,25 @@ Additionally, it is also worth noting that "the cardinal numbers of $\mathbb{N}$
 * An open interval (0, 1) is not denumerable.
 * The sets (0, 1) and $\mathbb{R}$ are equipotent. (have the same size)
 
-## Def) Denumerable set
+<div class="theorem-box definition">
+<div class="theorem-header">Definition (Denumerable set)</div>
+<div class="theorem-body" markdown="1">
 
-A set $S$ is denumerable if and only if there exists a bijective function from $S$ to $\mathbb{N}$.
+A set $S$ is denumerable if and only if there exists a bijective function from $S$ to $\mathbb{N}$. In this case, we denote $S \sim \mathbb{N}$, and we say the sets $A$ and $B$ are equipotent.
 
-**NOTE: in this case, we denote $S \sim \mathbb{N}$, and we say the sets A and B are equipotent.**
+</div>
+</div>
 
-## Th 1) The open unit interval (0, 1) of real numbers is nondenumerable
+<div class="theorem-box">
+<div class="theorem-header">Theorem 1</div>
+<div class="theorem-body" markdown="1">
 
-$
-\underline{\text{proof}}
-$
+The open unit interval $(0, 1)$ of real numbers is nondenumerable.
+
+</div>
+</div>
+
+**Proof.**
 
 $
 \forall x \in (0, 1) \quad \exists x_1, x_2, x_3 \dots \in \{0, 1, \dots, 9\} \quad \text{s.t.} \quad x = 0.x_1 x_2 x_3 \dots
@@ -95,15 +103,16 @@ $
 \therefore \text{This contradicts our assumption} \quad \blacksquare
 $
 
-## Th 2) Open intervals (0, 1) and (-1, 1) are equipotent.
+<div class="theorem-box">
+<div class="theorem-header">Theorem 2</div>
+<div class="theorem-body" markdown="1">
 
-$
-1) \ (0,1) \sim (-1,1)
-$
+The open intervals $(0, 1)$ and $(-1, 1)$ are equipotent, i.e., $(0,1) \sim (-1,1)$.
 
-$
-\underline{\text{proof}}
-$
+</div>
+</div>
+
+**Proof.**
 
 $
 \text{The function } f: (0,1) \to (-1,1) \text{ given by } f(x) = 2x - 1 \text{ is one-to-one correspondence.}
@@ -137,15 +146,16 @@ $
 \therefore f \text{ is surjective} \quad \blacksquare
 $
 
-## Th 3) The open intervals (-1, 1) and $\mathbb{R}$ are equipotent.
+<div class="theorem-box">
+<div class="theorem-header">Theorem 3</div>
+<div class="theorem-body" markdown="1">
 
-$
-2) \ (-1,1) \sim \mathbb{R}
-$
+The open interval $(-1, 1)$ and $\mathbb{R}$ are equipotent, i.e., $(-1,1) \sim \mathbb{R}$.
 
-$
-\underline{\text{proof}}
-$
+</div>
+</div>
+
+**Proof.**
 
 $
 \text{The function } g: (-1,1) \to \mathbb{R} \text{ given by } g(x) = \tan(\frac{\pi}{2}x) \text{ is one-to-one correspondence}

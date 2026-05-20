@@ -5,69 +5,76 @@ article_header:
   type: cover
 ---
 
-## *Th) Pinsker's Inequality*
+<div class="theorem-box">
+<div class="theorem-header">Theorem (Pinsker's Inequality)</div>
+<div class="theorem-body" markdown="1">
 
 $\forall$ \( P, Q \): probability distributions on measurable space $\( U, \Sigma \)$,
 
-
 $\delta(P, Q) \leq \sqrt{\frac{1}{2} D_{\text{KL}}(P \\| Q)}$
-
 
 - $\delta(P, Q)$ : Total variation
 - $D_{\text{KL}}(P \\| Q)$ : KL divergence
 
----
+</div>
+</div>
 
-Proof)
+**Proof.**
 
 I only prove for discrete case.
 
 A special case of Pinsker's Inequality first be proved for whole proof.
 
-> ## *Special case of Pinsker's Inequality*
-> <p>
-> \( P = \begin{cases}
-> 1 & \text{w.p. } p \\
-> 0 & \text{w.p. } 1-p
-> \end{cases} \)
-> </p>
->
-> <p>
-> \( Q = \begin{cases}
-> 1 & \text{w.p. } q \\
-> 0 & \text{w.p. } 1-q
-> \end{cases} \)
-> </p>
->
-> s.t. $ p \ge q $
-> 
-> $ \|P-Q\|_1 = \|p-q\| + \|(1-p) - (1-q)\| = 2\|p-q\| = 2(p-q) \quad (\because p \geq q)$
-> 
-> $f(p,q) = p \log \frac{p}{q} + (1-p)\log \frac{1-p}{1-q} - \frac{1}{2 \ln 2}(2(p-q))^2$
->
-> and
-> 
-> $\frac{\partial f}{\partial q} = \frac{\partial}{\partial q}\left(p\log p - p\log q\right) + \frac{\partial}{\partial q}\left((1-p)(\log(1-p) - \log(1-q))\right) - \frac{\partial}{\partial q}\frac{1}{2\ln 2}(2(p-q))^2$
-> 
-> $= -\frac{p}{q \ln 2} + \frac{1-p}{(1-q)\ln 2} - \frac{1}{2\ln 2}\cdot 2(2(p-q))(-2)$
-> 
-> $= \frac{1}{\ln 2}\left(-\frac{p}{q} + \frac{1-p}{1-q}\right) + \frac{4}{\ln 2}(p-q)$
-> 
-> $= \frac{1}{\ln 2}\left(-\frac{p}{q} + \frac{1-p}{1-q} + 4(p-q)\right)$
-> 
-> $= -\frac{p-q}{\ln 2}\left(\frac{1}{q(1-q)} - 4\right) \le 0 \quad (\because p \ge q \land \frac{1}{q(1-q)} \ge 4)$
->
-> and
-> 
-> $q = p \implies f(p,q)=0$
-> 
-> $\therefore f(p,q)\ge 0 \quad (p \ge q)$
->
-> which means that
-> 
-> $f(p,q) = D_{\mathrm{KL}}(P \\| Q) - \tfrac{1}{2 \ln 2} \|P - Q\|_1^2 \ge 0$
->
-> $\therefore D_{\mathrm{KL}}(P \\| Q) \ge \tfrac{1}{2 \ln 2} \|P - Q\|_1^2 \quad \cdots \quad (1)$
+<div class="theorem-box lemma">
+<div class="theorem-header">Lemma (Special case of Pinsker's Inequality)</div>
+<div class="theorem-body" markdown="1">
+
+<p>
+\( P = \begin{cases}
+1 & \text{w.p. } p \\
+0 & \text{w.p. } 1-p
+\end{cases} \)
+</p>
+
+<p>
+\( Q = \begin{cases}
+1 & \text{w.p. } q \\
+0 & \text{w.p. } 1-q
+\end{cases} \)
+</p>
+
+s.t. $ p \ge q $
+
+$ \|P-Q\|_1 = \|p-q\| + \|(1-p) - (1-q)\| = 2\|p-q\| = 2(p-q) \quad (\because p \geq q)$
+
+$f(p,q) = p \log \frac{p}{q} + (1-p)\log \frac{1-p}{1-q} - \frac{1}{2 \ln 2}(2(p-q))^2$
+
+and
+
+$\frac{\partial f}{\partial q} = \frac{\partial}{\partial q}\left(p\log p - p\log q\right) + \frac{\partial}{\partial q}\left((1-p)(\log(1-p) - \log(1-q))\right) - \frac{\partial}{\partial q}\frac{1}{2\ln 2}(2(p-q))^2$
+
+$= -\frac{p}{q \ln 2} + \frac{1-p}{(1-q)\ln 2} - \frac{1}{2\ln 2}\cdot 2(2(p-q))(-2)$
+
+$= \frac{1}{\ln 2}\left(-\frac{p}{q} + \frac{1-p}{1-q}\right) + \frac{4}{\ln 2}(p-q)$
+
+$= \frac{1}{\ln 2}\left(-\frac{p}{q} + \frac{1-p}{1-q} + 4(p-q)\right)$
+
+$= -\frac{p-q}{\ln 2}\left(\frac{1}{q(1-q)} - 4\right) \le 0 \quad (\because p \ge q \land \frac{1}{q(1-q)} \ge 4)$
+
+and
+
+$q = p \implies f(p,q)=0$
+
+$\therefore f(p,q)\ge 0 \quad (p \ge q)$
+
+which means that
+
+$f(p,q) = D_{\mathrm{KL}}(P \\| Q) - \tfrac{1}{2 \ln 2} \|P - Q\|_1^2 \ge 0$
+
+$\therefore D_{\mathrm{KL}}(P \\| Q) \ge \tfrac{1}{2 \ln 2} \|P - Q\|_1^2 \quad \cdots \quad (1)$
+
+</div>
+</div>
 
 
 Let
@@ -87,50 +94,56 @@ then define random variable
 
 then, below holds
 
-> ## *Th) chain rule of KL divergence*
-> $D_{\text{KL}}(P \\| Q) = D_{\text{KL}}(P(Z) \\| Q(Z)) + D_{\text{KL}}(P \\| Q | Z)$
->
-> Proof)
-> 
-> $D_{\text{KL}}(P(Z) \\| Q(Z))$
->
-> $= P(A) \log \frac{P(A)}{Q(A)} + P(A^c) \log \frac{P(A^c)}{Q(A^c)}$
->
-> $= \sum_{x \in A} p(x) \log \frac{P(A)}{Q(A)} + \sum_{x \notin A} p(x) \log \frac{P(A^c)}{Q(A^c)} \quad\cdots\quad \text{(2)}$
->
-> and
-> 
-> $D_{\text{KL}}(P \\| Q \mid Z)$
->
-> <p>
-> \(
-> = \mathbb{E}_{Z \sim P(Z)}\!\left[
->   D_{\mathrm{KL}}\!\left( P(P \mid Z=z)\,\|\,P(Q \mid Z=z) \right)
-> \right] \quad (\text{KL divergence between two conditional probability distributions})
-> \)
-> </p>
-> 
-> $= P(A) D_{\text{KL}}(P(P \mid Z=1) \,\\|\, P(Q \mid Z=1)) + P(A^c) D_{\text{KL}}(P(P \mid Z=0) \\| P(Q \mid Z=0))$
->
-> $= P(A) \sum_{x \in A} p(x \mid Z=1) \log \frac{p(x \mid Z=1)}{q(x \mid Z=1)} + P(A^c) \sum_{x \notin A} p(x \mid Z=0) \log \frac{p(x \mid Z=0)}{q(x \mid Z=0)}$
->
-> $ = \sum_{x\in A} p(x)\,\log\frac{p(x)}{q(x)}\cdot\frac{Q(A)}{P(A)}+\sum_{x\notin A} p(x)\,\log\frac{p(x)}{q(x)}\cdot\frac{Q(A^c)}{P(A^c)} \quad\cdots\quad \text{(3)}$
->
-> $ \left( \because p(x \mid Z=1) = \frac{p(x)}{P(A)} \text{, } q(x \mid Z=1) = \frac{q(x)}{Q(A)} \text{, } p(x \mid Z=0) = \frac{p(x)}{P(A^{c})} \text{, } q(x \mid Z=0) = \frac{q(x)}{Q(A^{c})}\right) $
->
-> Combine (2), (3), then
-> 
-> $D_{\text{KL}}(P(Z) \\| Q(Z)) + D_{\text{KL}}(P \\| Q \mid Z)$
->
-> $= \sum_{x \in A} p(x) \log \frac{P(A)}{Q(A)} + \sum_{x \notin A} p(x) \log \frac{P(A^c)}{Q(A^c)} + \sum_{x \in A} p(x) \log \frac{p(x)}{q(x)} \cdot \frac{Q(A)}{P(A)} + \sum_{x \notin A} p(x) \log \frac{p(x)}{q(x)} \cdot \frac{Q(A^c)}{P(A^c)}$
->
-> $= \sum_{x \in A} p(x) \left( \log \frac{p(x)}{q(x)} \cdot \frac{Q(A)}{P(A)} + \log \frac{P(A)}{Q(A)} \right) + \sum_{x \notin A} p(x) \left( \log \frac{p(x)}{q(x)} \cdot \frac{Q(A^c)}{P(A^c)} + \log \frac{P(A^c)}{Q(A^c)} \right)$
->
-> $= \sum_{x \in U} p(x) \log \frac{p(x)}{q(x)}$
->
-> $= D_{\text{KL}}(P \\| Q)$
->
-> $\blacksquare$
+<div class="theorem-box lemma">
+<div class="theorem-header">Lemma (Chain rule of KL divergence)</div>
+<div class="theorem-body" markdown="1">
+
+$D_{\text{KL}}(P \\| Q) = D_{\text{KL}}(P(Z) \\| Q(Z)) + D_{\text{KL}}(P \\| Q | Z)$
+
+</div>
+</div>
+
+**Proof.**
+
+$D_{\text{KL}}(P(Z) \\| Q(Z))$
+
+$= P(A) \log \frac{P(A)}{Q(A)} + P(A^c) \log \frac{P(A^c)}{Q(A^c)}$
+
+$= \sum_{x \in A} p(x) \log \frac{P(A)}{Q(A)} + \sum_{x \notin A} p(x) \log \frac{P(A^c)}{Q(A^c)} \quad\cdots\quad \text{(2)}$
+
+and
+
+$D_{\text{KL}}(P \\| Q \mid Z)$
+
+<p>
+\(
+= \mathbb{E}_{Z \sim P(Z)}\!\left[
+  D_{\mathrm{KL}}\!\left( P(P \mid Z=z)\,\|\,P(Q \mid Z=z) \right)
+\right] \quad (\text{KL divergence between two conditional probability distributions})
+\)
+</p>
+
+$= P(A) D_{\text{KL}}(P(P \mid Z=1) \,\\|\, P(Q \mid Z=1)) + P(A^c) D_{\text{KL}}(P(P \mid Z=0) \\| P(Q \mid Z=0))$
+
+$= P(A) \sum_{x \in A} p(x \mid Z=1) \log \frac{p(x \mid Z=1)}{q(x \mid Z=1)} + P(A^c) \sum_{x \notin A} p(x \mid Z=0) \log \frac{p(x \mid Z=0)}{q(x \mid Z=0)}$
+
+$ = \sum_{x\in A} p(x)\,\log\frac{p(x)}{q(x)}\cdot\frac{Q(A)}{P(A)}+\sum_{x\notin A} p(x)\,\log\frac{p(x)}{q(x)}\cdot\frac{Q(A^c)}{P(A^c)} \quad\cdots\quad \text{(3)}$
+
+$ \left( \because p(x \mid Z=1) = \frac{p(x)}{P(A)} \text{, } q(x \mid Z=1) = \frac{q(x)}{Q(A)} \text{, } p(x \mid Z=0) = \frac{p(x)}{P(A^{c})} \text{, } q(x \mid Z=0) = \frac{q(x)}{Q(A^{c})}\right) $
+
+Combine (2), (3), then
+
+$D_{\text{KL}}(P(Z) \\| Q(Z)) + D_{\text{KL}}(P \\| Q \mid Z)$
+
+$= \sum_{x \in A} p(x) \log \frac{P(A)}{Q(A)} + \sum_{x \notin A} p(x) \log \frac{P(A^c)}{Q(A^c)} + \sum_{x \in A} p(x) \log \frac{p(x)}{q(x)} \cdot \frac{Q(A)}{P(A)} + \sum_{x \notin A} p(x) \log \frac{p(x)}{q(x)} \cdot \frac{Q(A^c)}{P(A^c)}$
+
+$= \sum_{x \in A} p(x) \left( \log \frac{p(x)}{q(x)} \cdot \frac{Q(A)}{P(A)} + \log \frac{P(A)}{Q(A)} \right) + \sum_{x \notin A} p(x) \left( \log \frac{p(x)}{q(x)} \cdot \frac{Q(A^c)}{P(A^c)} + \log \frac{P(A^c)}{Q(A^c)} \right)$
+
+$= \sum_{x \in U} p(x) \log \frac{p(x)}{q(x)}$
+
+$= D_{\text{KL}}(P \\| Q)$
+
+$\blacksquare$
 
 ---
 
