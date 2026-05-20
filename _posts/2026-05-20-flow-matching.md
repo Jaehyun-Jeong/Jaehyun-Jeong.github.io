@@ -1,6 +1,6 @@
 ---
 layout: article
-title: "Flow Matching from scratch"
+title: "Step by Step Flow Matching"
 tags: GenerativeAI
 pseudocode: true
 article_header:
@@ -9,7 +9,7 @@ article_header:
   background_color: '#f8f9fa'
   background_image:
     gradient: 'linear-gradient(135deg, rgba(52, 152, 219, .3), rgba(155, 89, 182, .3))'
-    src: /assets/images/2026-05-12-flow-match/header.png
+    src: /assets/images/2026-05-20-flow-match/header.png
 ---
 
 <style>
