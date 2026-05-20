@@ -98,7 +98,7 @@ then, below holds
 <div class="theorem-header">Lemma (Chain rule of KL divergence)</div>
 <div class="theorem-body" markdown="1">
 
-$D_{\text{KL}}(P \| Q) = D_{\text{KL}}(P(Z) \| Q(Z)) + D_{\text{KL}}(P \| Q | Z)$
+$D_{\text{KL}}(P \\| Q) = D_{\text{KL}}(P(Z) \\| Q(Z)) + D_{\text{KL}}(P \\| Q \mid Z)$
 
 </div>
 </div>
