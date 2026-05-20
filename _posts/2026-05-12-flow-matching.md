@@ -25,34 +25,34 @@ article_header:
 
 ## Introduction
 
-There are two large branches of generative AI. One is denoising diffusion models and the other is the flow matching. These models are widely used including *Image Generation*, *Video Generation*, and *VLA models (vision language action models)* in robotics. In this posts I just want to explain mathematical background of flow matching. Since I'm also learning Flow Matching myself, it is impossible to show a proper example of it. However, I'm planning to write about example in Flow Matching (A very simple lines of code to run flow matching algorithm). I am very fascinated by recent advancements in Physical AI. So I thought that I should study more about Generative AI. I especially studied the reference of **MIT Class 6.S184: Generative AI With Stochastic Differential Equations, 2026**.
+There are two major branches of generative AI. One is denoising diffusion models, and the other is flow matching. These models are widely used in areas including image generation, video generation, and vision-language-action (VLA) models in robotics. In this post I want to explain the mathematical background of flow matching. Since I am still learning flow matching myself, I have not yet included a worked example. However, I plan to write a worked example of flow matching (a few simple lines of code to run the flow matching algorithm). I am fascinated by recent advances in Physical AI, so I thought I should study Generative AI more deeply. I drew especially on materials from **MIT 6.S184: Generative AI with Stochastic Differential Equations (2026)**.
 
 ## 1. ODEs
 
-Understanding Flow Matching starts from understanding Orinary Differential Equations (ODEs). ODEs are just equations composed by an unknown function and its derivatives. Due to their deterministicity, it is possible to predict the function value at time $t$.
+Understanding flow matching starts with understanding ordinary differential equations (ODEs). An ODE is an equation relating an unknown function to its derivatives. Because ODEs are deterministic, the function value at time $t$ is predictable from its initial condition.
 
 $\frac{d}{dt}X_{t} = u_{t}(X_{t})$
 *A simple example of ODE*
 
-On top of that, it is also true that every ODE can be defined by a *vector field* (functions from vector to vector) like the function $u$ below.
+Equivalently, every ODE can be defined by a *vector field* (a function from vectors to vectors), such as $u$ below.
 
 $u:\mathbb{R}^d \times [0,1] \rightarrow \mathbb{R}^d, \: (x, t) \mapsto u_{t}(x)$
 
-For every time $t$ and location $x$, we get a vector $u_{t}(x) \in \mathbb{R}^{d}$ specify a velocity in space. In a sense of Generative AI, $u$ tells where to modify to create a sample $X_1 \sim p_{data}$ from total noise $X_0$.
+For every time $t$ and location $x$, we get a vector $u_{t}(x) \in \mathbb{R}^{d}$ that specifies a velocity in space. In the context of Generative AI, $u$ tells us how to move points to create a sample $X_1 \sim p_{data}$ from total noise $X_0$.
 
 ## 2. Flow
 
-What is the ${X_t}$ when $t \neq 0$? Flow is a function which answers this question by definition below.
+What is $X_{t}$ when $t \neq 0$? The flow is the function that answers this question, defined as follows.
 
 $\psi:\mathbb{R}^{d} \times [0,1] \rightarrow \mathbb{R}^{d}, \: (x_0, t) \mapsto \psi_{t}(x_{0})$
 $\frac{d}{dt}\psi_{t}(x_{0}) = u_{t}(\psi_{t}(x_{0})) \: (\text{flow ODE})$
 $\psi_{0}(x_{0}) = x_{0} \: (\text{flow initial condition})$
 
-Flow is the $\psi_{t}$ which is the mapping from $x_0$ to $X_{t}, \: \forall t \in [0,1]$. Again, in a sense of Generative AI, it means that we can generate $X_{1} (\text{sample})$ from $x_{0} (\text{noise})$.
+The flow $\psi_{t}$ is the mapping from $x_{0}$ to $X_{t}$ for all $t \in [0,1]$. Again, in the context of generative AI, this means we can generate a sample $X_{1}$ from noise $x_{0}$.
 
-In this point, some people might think that "Then, how about fitting neural network to this flow?". **Unfortunately, that's a very complex problem due the complexity of $X_1$ and difficulty in maintaining Diffeomorphism(continuously differentiable including the inverse).**
+At this point, you might ask: why not fit a neural network directly to this flow? **This is difficult because of the complexity of $X_{1}$ and the difficulty of maintaining a diffeomorphism (a continuously differentiable map with a continuously differentiable inverse).**
 
-It is also worth noting that the theorem below holds and these conditions are almost always fulfilled in machine learning.
+It is also worth noting that the theorem below holds, and its conditions are almost always satisfied in machine learning.
 
 <div class="theorem-box">
 <div class="theorem-header">Theorem (Flow Existence and Uniqueness)</div>
@@ -66,11 +66,11 @@ Vector field $u: \mathbb{R} \times [0,1] \rightarrow \mathbb{R}^{d}$ is continuo
 </div>
 </div>
 
-We can wrap up concepts as **"vector fields define ODEs whose solutions are flows"**.
+We can summarize these concepts as **"vector fields define ODEs whose solutions are flows"**.
 
 ## 3. Flow Models
 
-As I said in the section 2, it is difficult to train neural network to fit flow. **Surprisingly, the training target of flow matching is not a flow but a vector field**. We can use trained vector field with **Euler Method** to recover $X_1$. In this way, $X_{1} \sim p_{data}$ can be restored from $X_0 \sim p_{init}(\text{usually } \mathcal{N}(0, I_{d}))$. A **flow model** is then described by the ODE.
+As stated in Section 2, it is difficult to train a neural network to fit the flow. **The training target of flow matching is not the flow itself but the vector field.** We can use the trained vector field with **Euler's Method** to recover $X_1$. In this way, $X_{1} \sim p_{data}$ can be recovered from $X_{0} \sim p_{init}$ (usually $\mathcal{N}(0, I_{d})$). A **flow model** is then described by the ODE.
 
 $$
 \begin{aligned}
@@ -79,13 +79,13 @@ $$
 \end{aligned}
 $$
 
-And the goal of flow matching is to make the endpoint $X_1$ of the trajectory have distribution $p_{data}$ since to be a flow model, it must can sample $X_{1}$ from $X_{0}$.
+The goal of flow matching is to make the endpoint $X_1$ have distribution $p_{data}$, since a flow model must be able to sample $X_{1}$ from $X_{0}$.
 
 $$
 X_1 \sim p_{data} \;\;\;\; \iff \;\;\;\; \psi^{\theta}_{1}(X_{0}) \sim p_{data} 
 $$
 
-If we successfully trained vector field (even though we can't yet), then we can generate a sample with the algorithm below.
+If we have a successfully trained vector field (even though we cannot do so yet), we can generate a sample with the algorithm below.
 
 {% raw %}
 <pre class="pseudocode">
@@ -106,24 +106,24 @@ If we successfully trained vector field (even though we can't yet), then we can 
 </pre>
 {% endraw %}
 
-If we have a marginal vector field ($u_{t}(x)$), it is possible to create a random sample from random noise through Euler method by going through the algorithm 1. This is exactly what we want to do, we do want to find the vector field. But to understand it, we need to follow the steps below.
+Given a marginal vector field $u_{t}(x)$, we can create a random sample from random noise via Euler's method by running Algorithm 1. This is exactly what we want to do: find the vector field. However, to understand it, we follow the steps below.
 
-1. Conditional probability path can be defined with samples (images, videos, texts).
-2. We can calculate the conditional vector field from conditional probability path.
-3. Conditional probability path and vector field can build marginal vector field with marginal probability path. ($\because$ **Marginalization trick**)
-4. Marginal vector field derived by conditional vector field and conditional probability path is a flow model ($\because$ **Continuity Equation**)
+1. The conditional probability path can be defined from samples (images, videos, texts).
+2. We can calculate the conditional vector field from the conditional probability path.
+3. The conditional probability path and the conditional vector field together build the marginal vector field and the marginal probability path. ($\because$ **Marginalization trick**)
+4. The marginal vector field derived from the conditional vector field and conditional probability path is a flow model ($\because$ **Continuity Equation**)
 
 ## 4. Conditional and Marginal Probability Path
 
-In this section, I am going to explain about 1 and 2.
+In this section, I explain points 1 and 2.
 
-First off, probability path is the sequence of distributions like $(p_t)_{t \in [0,1]}$ in below.
+A probability path is a sequence of distributions $(p_{t})_{t \in [0,1]}$, as shown below.
 
 $$
 \forall t \in [0,1], (p_{t})_{t \in [0, 1]} \;\;\;\; (p_t \text{ is a distribution})
 $$
 
-And we also can define **conditional (interpolating) probability path** as below.
+We can also define the **conditional (interpolating) probability path** as follows.
 
 <div class="theorem-box definition">
 <div class="theorem-header">Definition (Conditional Probability Path)</div>
@@ -141,7 +141,7 @@ $$
 </div>
 </div>
 
-Now let's see the example of **Gaussian probability path**. This is the probability path used by most state-of-the-art models.
+As an example, consider the **Gaussian probability path**. This is the probability path used by most state-of-the-art models.
 
 <div class="theorem-box definition">
 <div class="theorem-header">Definition (Noise Schedulers)</div>
@@ -156,7 +156,7 @@ $$
 </div>
 </div>
 
-Now we can define Gaussian conditional path like below.
+We can now define the Gaussian conditional path as follows.
 
 <div class="theorem-box definition">
 <div class="theorem-header">Definition (Gaussian Conditional Probability Path)</div>
@@ -172,7 +172,7 @@ $$
 </div>
 </div>
 
-Definition above fulfills the condition of conditional probability path and now we can sample from this by adding noise.
+The definition above satisfies the conditions of a conditional probability path, and we can sample from it by adding noise.
 
 $$
 \begin{aligned}
@@ -181,7 +181,7 @@ $$
 \end{aligned}
 $$
 
-Note that, $p_{t}(x) = \int p_{t}(x \| z) p_{data}(z) dz$ is mathmatically correct. But we don't know the density values $p_{t}(x)$ as the integral is intractable.
+Note that the identity $p_{t}(x) = \int p_{t}(x \mid z)\, p_{data}(z)\, dz$ holds. However, we do not know the density values $p_{t}(x)$, because the integral is intractable.
 
 <div class="note-box">
 <div class="note-header">Note</div>
@@ -194,7 +194,7 @@ The marginal density $p_{t}(x)$ is intractable in practice, but the **marginaliz
 
 ## 5. Conditional and Marginal Vector Fields
 
-Now, let's define the conditional vector field as below.
+We now define the conditional vector field as follows.
 
 <div class="theorem-box definition">
 <div class="theorem-header">Definition (Conditional Vector Field)</div>
@@ -210,7 +210,7 @@ $$
 </div>
 </div>
 
-And we can find the conditional vector field analytically by hand in the case of Gaussian probability path.
+For the Gaussian probability path, we can derive the conditional vector field analytically.
 
 $$
 \begin{aligned}
@@ -222,7 +222,7 @@ $$
 
 ## 6. From Conditional Flow Model to Marginal Flow Model
 
-In this section I will explain how conditional probability path and conditional vector field can create a marginal vector field (Marginalization Trick) and how can we prove the marginal vector creates a flow model (Continuity Equation).
+In this section, I explain how the conditional probability path and the conditional vector field together produce a marginal vector field (the marginalization trick), and how to prove that the marginal vector field induces a flow model (the continuity equation).
 
 <div class="theorem-box">
 <div class="theorem-header">Theorem (Marginalization Trick)</div>
@@ -245,7 +245,7 @@ In particular, $X_{1} \sim p_{data}$ for this ODE, so that we might say "$u_{t}^
 </div>
 </div>
 
-When it comes to Marginalization Trick, we already know that the theorem holds due to the conditional vector field $u_{t}^{target} (x \| z)$ and conditional probability path $p_{t}(x \| z)$ we already deduced.
+The marginalization trick holds because of the conditional vector field $u_{t}^{target}(x \mid z)$ and the conditional probability path $p_{t}(x \mid z)$ derived earlier.
 
 <div class="theorem-box">
 <div class="theorem-header">Theorem (Continuity Equation)</div>
@@ -262,33 +262,33 @@ where $\partial_{t} p_{t}(x) = \frac{d}{dt} p_{t}(x)$ denotes the time-derivativ
 </div>
 </div>
 
-So now, we can prove **Continuity Equation on Marginal Vector Field**. Proving this will provide a theoriotical background and answer a question about why the flow model holds on marginal vector field and why it is the right way to do. Remember that the reason why we need marginal vector field is that it can generate a random sample from random noise. If the model is a conditional vector field, we can only generate a single pre-determined sample $z \sim p_{data}$.
+We can now prove the **continuity equation for the marginal vector field**. This proof provides theoretical justification for why the flow model holds for the marginal vector field and why this approach is correct. Recall that we need the marginal vector field because it can generate a sample from noise drawn at random. If the model is a conditional vector field, we can generate only a single, pre-specified sample $z \sim p_{data}$.
 
 $$
 \begin{aligned}
 \partial_{t} p_{t}(x) &= \partial_{t} \int p_{t}(x|z) p_{data}(z) \, dz = \int \partial_{t} p_{t}(x|z) p_{data}(z) \, dz \;\;\;\; (\because \text{definition of }p_{t}(x)) \\\\
-&= \int -\text{div}\!\left(p_{t}(\cdot|z) \, u_{t}^{target}(\cdot|z)\right)\!(x) \, p_{data}(z) \, dz \\\\ &(\because \text{continuity eqation for the conditional probability path}) \\\\
+&= \int -\text{div}\!\left(p_{t}(\cdot|z) \, u_{t}^{target}(\cdot|z)\right)\!(x) \, p_{data}(z) \, dz \\\\ &(\because \text{continuity equation for the conditional probability path}) \\\\
 &= -\text{div}\!\left(\int p_{t}(x|z) \, u_{t}^{target}(x|z) \, p_{data}(z) \, dz\right) \\\\
 &\left(\because x \text{ and } z \text{ are independent, which means } \frac{\partial z}{\partial x} = 0 \right) \\\\
 &= -\text{div}\!\left(p_{t}(x) \int u_{t}^{target}(x|z) \, \frac{p_{t}(x|z) \, p_{data}(z)}{p_{t}(x)} \, dz\right)\!(x) \\\\
-&(\because \text{Multiplied and devided by } p_{t}(x)) \\\\
+&(\because \text{multiplying and dividing by } p_{t}(x)) \\\\
 &= -\text{div}\!\left(p_{t} \, u_{t}^{target}\right)\!(x) \;\;\;\; (\because \text{Marginalization Trick}) \;\;\;\; \blacksquare \\\\
 \end{aligned}
 $$
 
 ## 7. Learning the Marginal Vector Field
 
-Now we proved the existence of the Marginal Vector Field and satisfying Continuity Equation so that we can generate a data $(X_{1} \sim p_{data})$ from a noise $(X_{0} \sim p_{init})$. As previously stated, the goal of flow matching is to train the neural network $u_{t}^{\theta}$ such that it equals the marginal vector field $u_{t}^{target}$. But, how can we train the marginal vector field? Cut to the chase, **minimizing Conditional Flow Matching Loss defined like below achieves the goal of approaching marginal vector field.**
+We have now proved the existence of a marginal vector field satisfying the continuity equation, so we can generate data $X_{1} \sim p_{data}$ from noise $X_{0} \sim p_{init}$. As previously stated, the goal of flow matching is to train the neural network $u_{t}^{\theta}$ such that it equals the marginal vector field $u_{t}^{target}$. But how can we train the marginal vector field? In short, **minimizing the conditional flow matching loss defined below approximates the marginal vector field.**
 
 <div class="theorem-box definition">
 <div class="theorem-header">Definition (Flow Matching Loss and Conditional Flow Matching Loss)</div>
 <div class="theorem-body" markdown="1">
 
-Let Unif be a Uniform distribution in $[0, 1]$, \\
+Let Unif be the uniform distribution on $[0, 1]$, \\
 $p_{t}$: data distribution at time $t$, \\
 $u_{t}^{\theta}(x)$: marginal vector field (neural network, object of learning), \\
 $u_{t}^{target}(x)$: target marginal vector field (unknown), and \\
-$u_{t}^{target}(x \| z)$ target conditional vector field (known)
+$u_{t}^{target}(x \| z)$: target conditional vector field (known)
 
 $$
 \begin{aligned}
@@ -298,11 +298,11 @@ $$
 \end{aligned}
 $$
 
-$i$ means implementing sampling precedure (sample time $t$ $\rightarrow$ sample data $z$ $\rightarrow$ add noise to the data $x \sim p_{t}(\cdot \| z)$).
+We implement this sampling procedure as: sample time $t$, then data $z$, then noise to obtain $x \sim p_{t}(\cdot \mid z)$.
 </div>
 </div>
 
-I said that minimizing CFM Loss can minimize FM Loss (approaching $u_{t}^{\theta}(x)$ to $u_{t}^{target}(x)$). Fascinatingly, it turned out that regressing against the tractable, conditional vector field can implicitly regress the intractable, marginal vector field. I will show you the proof with the theorem itself.
+I claimed that minimizing the CFM loss also minimizes the FM loss (driving $u_{t}^{\theta}(x)$ toward $u_{t}^{target}(x)$). Remarkably, regressing against the tractable conditional vector field implicitly regresses against the intractable marginal vector field. I state the theorem first and then prove it.
 
 <div class="theorem-box">
 <div class="theorem-header">Theorem (FM Loss = CFM Loss + Constant)</div>
@@ -359,7 +359,7 @@ $$
 \end{aligned}
 $$
 
-So we now understood why minimizing the CFM Loss is ultimately minimize the FM Loss. To fulfill the requirements for the flow matching training, we now have left the guaussian form of CFM loss. So let's see how it derived.
+We have now seen why minimizing the CFM loss ultimately minimizes the FM loss. To complete the flow matching training procedure, all that remains is the Gaussian form of the CFM loss. Let us see how it is derived.
 
 ## 8. CFM Loss for Gaussian Probability Path
 
@@ -369,7 +369,7 @@ $$
 \epsilon \sim \mathcal{N}(0, I_{d}) \;\;\;\; \Rightarrow \;\;\;\; x_{t} = \alpha_{t} z + \beta_{t} \epsilon \sim \mathcal{N}(\alpha_{t} z, \beta_{t}^{2} I_{d}) = p_{t}(\cdot|z).
 $$
 
-And we already derived the closed form of the conditional vector field for this path:
+We have already derived the closed form of the conditional vector field for this path:
 
 $$
 u_{t}^{target}(x|z) = \left(\dot{\alpha}_{t} - \frac{\dot{\beta}_{t}}{\beta_{t}} \alpha_{t} \right) z + \frac{\dot{\beta}_{t}}{\beta_{t}} x.
@@ -384,7 +384,7 @@ $$
 \end{aligned}
 $$
 
-The second form is what we actually implement: sample $z$ from data, sample $\epsilon$ from a unit Gaussian, then regress $u_{t}^{\theta}(x)$ against the target
+The second form is what we actually implement: sample $z$ from the data, sample $\epsilon$ from a unit Gaussian, then regress $u_{t}^{\theta}(x)$ against the target
 
 $$
 x = \alpha_{t} z + \beta_{t} \epsilon, \;\;\;\; \text{target} = \dot{\alpha}_{t} z + \dot{\beta}_{t} \epsilon,
@@ -410,9 +410,9 @@ $$
 \mathcal{L}_{\text{cfm}}(\theta) = \mathbb{E}_{t \sim \text{Unif},\, z \sim p_{data},\, \epsilon \sim \mathcal{N}(0, I_{d})} \!\left[\, \| u_{t}^{\theta}(tz + (1-t)\epsilon) - (z - \epsilon) \|^{2} \,\right].
 $$
 
-This is the most common form used in practice, and it is exactly what we'd implement in code for a minimal flow matching training loop.
+This is the most common form used in practice, and it is exactly what we would implement in code for a minimal flow matching training loop.
 
-Finally, we get the final training loop for flow matching as algorithm 2. And if you finished to training the vector field, you can run simulation through algorithm 1.
+Finally, we obtain the training loop for flow matching as Algorithm 2. Once the vector field has been trained, you can run the simulation via Algorithm 1.
 
 {% raw %}
 <pre class="pseudocode">
